@@ -1,17 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
+import { retrieveData } from "./OverviewComponents/data/apiCalls";
 
 export default function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true); // Confirm client-side rendering
+  }, []);
+
+  const getInit = async () => {
+    await retrieveData(setMessages);
+  }
+
+  if (isClient) {
+    getInit()
+  }
 
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
 
     // Add the user's message to the chat
-    const userMessage = { sender: "User", text: userInput };
+    const userMessage = { sender: "Taboka", text: userInput };
     setMessages((prev) => [...prev, userMessage]);
 
     // Clear the input box
