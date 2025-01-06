@@ -23,7 +23,7 @@
 
 .navbar {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; 
   padding-right: 20px;
 }
 
