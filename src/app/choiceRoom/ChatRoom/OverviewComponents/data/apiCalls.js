@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const url = "https://osquared-backend.onrender.com";
-const authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWYW5lc3NhIiwiaWF0IjoxNzM2MjAxMTkzLCJuYmYiOjE3MzYyMDExOTMsImp0aSI6ImE1MDY2MjAyLTVlZDMtNDE1MC04YmQ3LWIzYzE2MDBmYmQ1NCIsImV4cCI6MTczNjgwNTk5MywidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.o2JDeNwwRkn4psF2mM9F0fb4qMizSfJnNP_SrOvHbD8"
+const authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJUYWJva2EgIiwiaWF0IjoxNzM2MjAxNDE5LCJuYmYiOjE3MzYyMDE0MTksImp0aSI6ImYzMzE3NjFhLWNhYjctNGYwNi1hYjk4LTYyMGI5NmU5ZThlMSIsImV4cCI6MTczNjgwNjIxOSwidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.6DfCEE0owFKpq5rwIbCqHkNv6smaiwnTNsPC7fzWGEQ"
+
 export const retrieveData = async (setMessages) => {
     try {
         const response = await axios.get(`${url}/chat/initial-message/scammer`, {
