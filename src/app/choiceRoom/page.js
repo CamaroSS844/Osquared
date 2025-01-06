@@ -21,7 +21,7 @@ export default function GameRooms() {
           onClick={() => handleRoomClick("GameRoom")}
         >
           <h2>Chat Room 1</h2>
-          <p>Peter</p>
+          <p>Dave</p>
         </div>
 
         {/* Room 2 */}
