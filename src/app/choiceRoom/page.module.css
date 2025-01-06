@@ -1,0 +1,54 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #5ba3e6, #5ad1e6);
+  height: 100vh;
+  padding: 20px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.tileContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 900px;
+}
+
+.tile {
+  background: white;
+  border-radius: 10px;
+  width: 250px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.tile:hover {
+  transform: scale(1.05);
+  background-color: #e6f7ff;
+}
+
+.tile h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.tile p {
+  font-size: 1rem;
+  color: #555;
+}

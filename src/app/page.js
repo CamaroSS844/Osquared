@@ -5,18 +5,19 @@ import { useRouter } from "next/navigation";
 import TopNav from "./OverviewComponents/topnav";
 import styles from "./page.module.css";
 import Image from "next/image";
+import { useState } from "react";
+import GameRooms from "./choiceRoom/page";
 
 export default function Home() {
   const router = useRouter();
+  const [showGameRooms, setShowGameRooms] = useState(false);
 
   // Function to navigate to the game page
-  const handlePlayGameClick = () => {
-    router.push("/game");
-  };
 
   return (
     <div className={styles.page}>
       <TopNav className={styles.header}/>
+      {!showGameRooms ? (
       <div className={styles.mainContent}>
         {/* Welcome Section */}
         <div className={styles.textSection}>
@@ -33,7 +34,7 @@ export default function Home() {
           </p>
 
           {/* Play Game Button */}
-          <button onClick={handlePlayGameClick} className={styles.playButton}>
+          <button onClick={() => setShowGameRooms(true)} className={styles.playButton}>
             Play the Game
           </button>
         </div>
@@ -51,6 +52,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      ) : (
+        <GameRooms />
+      )}
     </div>
   );
 }
