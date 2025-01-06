@@ -2,23 +2,22 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { retrieveData } from "./OverviewComponents/data/apiCalls";
+import { retrieveData, sendNewMessage } from "./OverviewComponents/data/apiCalls";
 
 export default function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
-  const [isClient, setIsClient] = useState(false)
+  const [isClient, setIsClient] = useState(false);
+  const [score, setScore] = useState(0);
+  const [explanation, setExplanation] = useState("");
 
   useEffect(() => {
     setIsClient(true); // Confirm client-side rendering
   }, []);
 
-  const getInit = async () => {
-    await retrieveData(setMessages);
-  }
-
   if (isClient) {
-    getInit()
+    retrieveData(setMessages);
+    setIsClient(false);
   }
 
   const handleSendMessage = async () => {
@@ -31,35 +30,51 @@ export default function ChatRoom() {
     // Clear the input box
     setUserInput("");
 
+    const myPost = { user_message: userInput };
+    console.log(myPost);
+
     // Simulate AI response
-    const aiResponse = await getAIResponse(userInput);
-    const aiMessage = { sender: "AI", text: aiResponse };
+    const aiResponse = await sendNewMessage(myPost, messages, setMessages);
 
-    // Add the AI's response to the chat
-    setMessages((prev) => [...prev, aiMessage]);
-  };
+    // Extract response and feedback
+    const { response, feedback, scores } = aiResponse;
+    console.log(feedback)
 
-  const getAIResponse = async (input) => {
-    // Simulate AI response logic (replace with actual AI call)
-    return `You said: "${input}". Remember to stay safe online!`;
+
+    // Update messages, score, and explanation
+    setExplanation(feedback);
+    setScore((prev) => prev + scores.privacy);
   };
 
   return (
     <div className={styles.page}>
       <h1 className={styles.title}>Cyber Security Chat Room</h1>
+      <div className={styles.container}>
+        {/* Chat Area */}
+        <div className={styles.chatArea}>
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`${styles.message} ${
+                message.sender === "Taboka" ? styles.userMessage : styles.aiMessage
+              }`}
+            >
+              <strong>{message.sender}:</strong> {message.text}
+            </div>
+          ))}
+        </div>
 
-      {/* Chat Area */}
-      <div className={styles.chatArea}>
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`${styles.message} ${
-              message.sender === "User" ? styles.userMessage : styles.aiMessage
-            }`}
-          >
-            <strong>{message.sender}:</strong> {message.text}
+        {/* Score and Explanation Tile */}
+        <div className={styles.infoTile}>
+          <div className={styles.scoreSection}>
+            <h2>Score</h2>
+            <p>{score}</p>
           </div>
-        ))}
+          <div className={styles.explanationSection}>
+            <h2>AI Guidance</h2>
+            <p>{explanation}</p>
+          </div>
+        </div>
       </div>
 
       {/* Input Area */}
